@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { getAuth } from 'firebase/auth';
 
 const HomePage = () => {
+    const [newListName, setNewListName] = useState('');
+
+    const handleCreateList = () => {
+        console.log('created List')
+    }
+
   return (
-    <div className="max-w-md mx-auto p-4 rounded shadow-lg">
-      <h1>Welcome to the Home Page</h1>
-      <p>This is a protected page. Only logged-in users can access it.</p>
+    <div className="container mx-auto p-6">
+        <h1 className="text-2xl font-semibold mb-6">Your Task Lists</h1>
+    
+        <div>
+            <input
+                type="text" 
+                value={newListName} 
+                onChange={(e) => setNewListName(e.target.value)}      
+                placeholder="Enter task list name"
+            />
+             <button
+                onClick={handleCreateList}
+            >
+                Create Task List
+            </button>
+        </div>  
     </div>
   );
 };
