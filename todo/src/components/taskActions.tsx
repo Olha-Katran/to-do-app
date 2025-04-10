@@ -6,15 +6,22 @@ type Props = {
     onDeleteTask: (taskId: string) => void;
     completed: boolean;
     onToggleCompletion: () => void;
+    onUpdateTask: () => void;
 };
 
-const TaskActions: React.FC<Props> = ({ taskId, onDeleteTask, completed, onToggleCompletion }) => (
+const TaskActions: React.FC<Props> = ({ 
+    taskId,
+     onDeleteTask, 
+     completed, 
+     onToggleCompletion, 
+     onUpdateTask, 
+    }) => (
     <div className="flex items-center space-x-2">
         <button onClick={() => onDeleteTask(taskId)}>
             <FaTrash size={14} className="text-gray-600 hover:text-red-500"/>
         </button>
 
-        <button onClick={() => onDeleteTask(taskId)}>
+        <button onClick={onUpdateTask}>
             <FaEdit size={14} className="text-gray-600 hover:text-red-500"/>
         </button>
 

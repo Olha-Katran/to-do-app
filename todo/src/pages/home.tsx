@@ -120,6 +120,26 @@ const HomePage = () => {
     await updateTaskList(user.uid, listId, updatedTaskLists.find((list) => list.id === listId)?.tasks || []);
   };
 
+  const handleUpdateTask = async (listId: string, taskId: string, newTaskText: string, newTaskDescription: string) => {
+    if (user && taskId && newTaskText.trim() !== '') {
+      const updatedTaskLists = taskLists.map((list) => {
+        if (list.id === listId) {
+          const updatedTasks = list.tasks.map((task) => {
+            if (task.id === taskId) {
+              return { ...task, text: newTaskText, description: newTaskDescription };
+            }
+            return task;
+          });
+          return { ...list, tasks: updatedTasks };
+        }
+        return list;
+      });
+
+      setTaskLists(updatedTaskLists);
+      await updateTaskList(user.uid, listId, updatedTaskLists.find((list) => list.id === listId)?.tasks || []);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -144,6 +164,7 @@ const HomePage = () => {
             onUpdateListName={handleUpdateListName}
             onDeleteList={handleDeleteList}
             onDeleteTask={handleDeleteTask}
+            onUpdateTask={handleUpdateTask}
           />
         ))}
       </ul>

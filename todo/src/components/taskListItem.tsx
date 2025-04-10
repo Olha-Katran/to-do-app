@@ -49,6 +49,10 @@ const TaskListItem: React.FC<Props> = ({
         onDeleteTask(list.id, taskId);
     }; 
 
+    const handleUpdateTask = (taskId: string, newText: string, newDescription: string) => {
+        onUpdateTask(list.id, taskId, newText, newDescription);
+      };
+
     return (
         <li key={list.id} className="p-4 rounded-lg border-2 border-green-700">
             <ListHeader
@@ -64,6 +68,7 @@ const TaskListItem: React.FC<Props> = ({
                         task={task} 
                         onDeleteTask={handleDeleteTask} 
                         onToggleCompletion={() => onToggleTaskCompletion(list.id, task.id)}
+                        onUpdateTask={handleUpdateTask}
                      />
                 ))}
             </ul>
@@ -72,6 +77,7 @@ const TaskListItem: React.FC<Props> = ({
             <AddTaskForm onAddTask={handleAddTask} />
 
             <EditModal
+                label='Edit List Name'
                 isOpen={isEditModalOpen}
                 newListName={newListName}
                 onClose={handleCloseEditModal}
