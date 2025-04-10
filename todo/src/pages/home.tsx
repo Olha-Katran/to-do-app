@@ -74,6 +74,21 @@ const HomePage = () => {
     }
   };
 
+  const handleDeleteTask = async (listId: string, taskId: string) => {
+    if (user) {
+      const updatedTaskLists = taskLists.map((list) => {
+        if (list.id === listId) {
+          const filteredTasks = list.tasks.filter((task) => task.id !== taskId);
+          return { ...list, tasks: filteredTasks };
+        }
+        return list;
+      });
+
+      setTaskLists(updatedTaskLists);
+      await updateTaskList(user.uid, listId, updatedTaskLists.find((list) => list.id === listId)?.tasks || []);
+    }
+  };
+
   const handleDeleteList = async (listId: string) => {
     if (user) {
       try {
@@ -127,7 +142,8 @@ const HomePage = () => {
             onToggleTaskCompletion={handleToggleTaskCompletion}
             onAddTask={handleAddTask}
             onUpdateListName={handleUpdateListName}
-            onDelete={handleDeleteList}
+            onDeleteList={handleDeleteList}
+            onDeleteTask={handleDeleteTask}
           />
         ))}
       </ul>

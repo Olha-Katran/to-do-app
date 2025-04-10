@@ -8,15 +8,18 @@ type Props = {
     list: TaskList;
     onToggleTaskCompletion: (listId: string, taskId: string) => void;
     onAddTask: (listId: string, taskText: string, taskDescription: string) => void;
-    onDelete: (listId: string) => void; 
+    onDeleteList: (listId: string) => void; 
+    onDeleteTask: (listId: string, taskId: string) => void;
     onUpdateListName: (listId: string, newName: string) => void;
+    
   }
 
 const TaskListItem: React.FC<Props> = ({ 
     list, 
     onToggleTaskCompletion,
     onAddTask, 
-    onDelete, 
+    onDeleteList, 
+    onDeleteTask,
     onUpdateListName
  }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -41,6 +44,10 @@ const TaskListItem: React.FC<Props> = ({
         onAddTask(list.id, taskText, taskDescription);
       };
 
+    const handleDeleteTask = (taskId: string) => {
+        onDeleteTask(list.id, taskId);
+    }; 
+
     return (
         <li key={list.id} className="p-4 rounded-lg border-2 border-green-700">
             <div className='flex justify-between items-center mb-4'>
@@ -54,7 +61,7 @@ const TaskListItem: React.FC<Props> = ({
                     </button>
 
                     <button
-                        onClick={() => onDelete(list.id)}
+                        onClick={() => onDeleteList(list.id)}
                         className="text-red-500 hover:text-white hover:bg-red-500 px-4 py-2 rounded-lg"
                     >
                         <FaTrash size={16} />
@@ -77,12 +84,20 @@ const TaskListItem: React.FC<Props> = ({
                                 </p>
                              )}
                         </div>
-                        <button
-                            onClick={() => onToggleTaskCompletion(list.id, task.id)}
-                            className={`p-2 rounded-full ${task.completed ? 'bg-green-500' : 'bg-gray-500'}`}
-                        >
-                            <FaCheck size={10} className={task.completed ? 'text-white' : 'text-gray-800'} />
-                        </button>
+                        <div className="flex items-center space-x-2" >
+                            <button
+                                onClick={() => onToggleTaskCompletion(list.id, task.id)}
+                                className={`p-1 rounded-full ${task.completed ? 'bg-green-500' : 'bg-gray-500'}`}
+                            >
+                                <FaCheck size={10} className={task.completed ? 'text-white' : 'text-gray-800'} />
+                            </button>
+                            <button 
+                                onClick={() => handleDeleteTask(task.id)}
+                                // className="hover:bg-red-300 transition-colors duration-200"
+                            >
+                                <FaTrash size={14} className="text-gray-600 hover:text-red-500"/>
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ul>
