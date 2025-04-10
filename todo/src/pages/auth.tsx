@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React,  { useState } from "react";
 import LoginForm from "../components/loginForm";
 import RegisterForm from "../components/registerForm";
-
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true); 
 
   return (
     <div className="auth-container">

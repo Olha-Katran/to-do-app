@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
+
 import { auth } from '../firebase';
 import Input from "./input";
 import Button from "./button";
@@ -13,9 +14,12 @@ const RegisterForm = () => {
         e.preventDefault(); 
         console.log('Handle Register')
         try {
-            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-            await updateProfile(userCredentials.user, {displayName: name});
-            console.log("Registered:", userCredentials.user);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(userCredential.user, {displayName: name});
+
+            const token = await userCredential.user.getIdToken();
+            localStorage.setItem('token', token);
+            window.location.reload();
         } catch (err) {
             console.error("Registration error:", err);
         }

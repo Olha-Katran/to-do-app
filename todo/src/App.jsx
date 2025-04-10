@@ -1,12 +1,13 @@
+
 import './App.css'
-import Auth from './pages/auth'
+import RouterComponent from './router/router'
 
 function App() {
 
+
   return (
     <>
-      <h1>To Do</h1>
-      <Auth />
+      <RouterComponent />
     </>
   )
 }

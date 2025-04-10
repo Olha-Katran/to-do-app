@@ -12,8 +12,11 @@ const LoginForm = () => {
     const handleLogin = async(e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            console.log("logged in");
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const token = await userCredential.user.getIdToken();
+
+            localStorage.setItem('token', token);
+            window.location.reload();
         } catch (err) {
             console.error("Login error:", err);
         }
