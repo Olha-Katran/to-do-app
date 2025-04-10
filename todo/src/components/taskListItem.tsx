@@ -55,14 +55,14 @@ const TaskListItem: React.FC<Props> = ({
                 <div>
                     <button
                         onClick={handleOpenEditModal}
-                        className="text-red-500 hover:text-white hover:bg-red-500 px-4 py-2 rounded-lg"
+                        className="text-white-500 hover:text-white hover:bg-green-500 px-4 py-2 rounded-lg"
                     >
                         <FaEdit size={16} />
                     </button>
 
                     <button
                         onClick={() => onDeleteList(list.id)}
-                        className="text-red-500 hover:text-white hover:bg-red-500 px-4 py-2 rounded-lg"
+                        className="text-white-500 hover:text-white hover:bg-red-500 px-4 py-2 rounded-lg"
                     >
                         <FaTrash size={16} />
                     </button>
@@ -73,7 +73,7 @@ const TaskListItem: React.FC<Props> = ({
 
             <ul>
                 {list.tasks.map((task) => (
-                    <li key={task.id} className="flex items-center justify-between mb-2">
+                    <li key={task.id} className="flex items-center justify-between mb-2 p-4 border border-gray-300 rounded-lg">
                         <div className='text-left' style={{ width: '80%' }}>
                             <span className={`${task.completed ? 'text-gray-400' : ''}`}>
                                 {task.text}
@@ -84,7 +84,7 @@ const TaskListItem: React.FC<Props> = ({
                                 </p>
                              )}
                         </div>
-                        <div className="flex items-center space-x-2" >
+                        <div className="flex items-center space-x-5" >
                             <button
                                 onClick={() => onToggleTaskCompletion(list.id, task.id)}
                                 className={`p-1 rounded-full ${task.completed ? 'bg-green-500' : 'bg-gray-500'}`}
@@ -93,7 +93,6 @@ const TaskListItem: React.FC<Props> = ({
                             </button>
                             <button 
                                 onClick={() => handleDeleteTask(task.id)}
-                                // className="hover:bg-red-300 transition-colors duration-200"
                             >
                                 <FaTrash size={14} className="text-gray-600 hover:text-red-500"/>
                             </button>
