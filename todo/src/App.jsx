@@ -1,12 +1,12 @@
 import './App.css'
-import RegisterForm from './components/registerForm'
+import Auth from './pages/auth'
 
 function App() {
 
   return (
     <>
       <h1>To Do</h1>
-      <RegisterForm />
+      <Auth />
     </>
   )
 }

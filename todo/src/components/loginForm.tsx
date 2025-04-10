@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import { auth } from '../firebase';
 import Input from './input';
+import Button from './button';
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
@@ -33,12 +34,10 @@ const LoginForm = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
             />
-            <button
+            <Button
                 type="submit"
-                className="w-full py-3 mt-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-                Login
-            </button>
+                label="Login"
+            />
         </form>
     )
 };
