@@ -1,6 +1,8 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from '../firebase';
+import Input from "./input";
+import Button from "./button";
 
 const RegisterForm = () => {
     const [name, setName] = useState<string>("");
@@ -21,37 +23,30 @@ const RegisterForm = () => {
     
     return (
         <form onSubmit={handleRegister} className="max-w-md mx-auto p-4 rounded shadow-lg">
-            <div className="mb-4">
-                <input 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    required
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-            <div className="mb-4">
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                    required
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-            </div>
+            <Input 
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+            />
+            <Input 
+                type='email' 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                placeholder="Email"
+             />
+      
+            <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+            />
              
-            <div className="mb-4">
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                    className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-            </div>
-             
-             <button type='submit'>Register</button>
+            <Button
+                type="submit"
+                label="Register"
+            />
         </form>
     )
 };
