@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 import { TaskList } from './../types/types';
+import AddTaskForm from './addTaskForm';
 
 type Props = {
     list: TaskList;
     onToggleTaskCompletion: (listId: string, taskId: string) => void;
-    onAddTask: (listId: string, taskText: string) => void;
+    onAddTask: (listId: string, taskText: string, taskDescription: string) => void;
     onDelete: (listId: string) => void; 
     onUpdateListName: (listId: string, newName: string) => void;
   }
@@ -36,6 +37,10 @@ const TaskListItem: React.FC<Props> = ({
       }
     };
 
+    const handleAddTask = (taskText: string, taskDescription: string) => {
+        onAddTask(list.id, taskText, taskDescription);
+      };
+
     return (
         <li key={list.id} className="p-4 rounded-lg border-2 border-green-700">
             <div className='flex justify-between items-center mb-4'>
@@ -62,9 +67,16 @@ const TaskListItem: React.FC<Props> = ({
             <ul>
                 {list.tasks.map((task) => (
                     <li key={task.id} className="flex items-center justify-between mb-2">
-                        <span className={`${task.completed ? 'text-gray-400' : ''}`}>
-                            {task.text}
-                        </span>
+                        <div className='text-left' style={{ width: '80%' }}>
+                            <span className={`${task.completed ? 'text-gray-400' : ''}`}>
+                                {task.text}
+                            </span>
+                            {task.description && (
+                                <p className="text-sm text-gray-600 mt-2 break-all">
+                                    {task.description}
+                                </p>
+                             )}
+                        </div>
                         <button
                             onClick={() => onToggleTaskCompletion(list.id, task.id)}
                             className={`px-4 py-2 ${task.completed ? 'bg-green-500' : 'bg-gray-500'} rounded-lg`}
@@ -74,15 +86,9 @@ const TaskListItem: React.FC<Props> = ({
                     </li>
                 ))}
             </ul>
-            
-            <div className="mt-4">
-                <input
-                    type="text"
-                    placeholder="New task"
-                    className="p-3 w-full border border-gray-300 rounded-lg"
-                    onKeyDown={(e) => e.key === 'Enter' && onAddTask(list.id, e.currentTarget.value)}
-                />
-            </div>
+
+
+            <AddTaskForm onAddTask={handleAddTask} />
 
              {isEditModalOpen && (
                 <div className="fixed inset-0 bg-opacity-90 flex justify-center items-center">

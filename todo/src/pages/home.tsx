@@ -51,14 +51,15 @@ const HomePage = () => {
     }
   };
 
-  const handleAddTask = async (listId: string, taskText: string) => {
+  const handleAddTask = async (listId: string, taskText: string, taskDescription: string) => {
     if (user && taskText.trim() !== '') {
       const updatedTaskLists = taskLists.map((list) => {
         if (list.id === listId) {
           const newTask = {
             id: `${Date.now()}`,
             text: taskText,
-            completed: false
+            completed: false,
+            description: taskDescription || ''
           };
           return {
             ...list,
