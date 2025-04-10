@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaTrash, FaEdit } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaCheck } from 'react-icons/fa';
 
 import { TaskList } from './../types/types';
 import AddTaskForm from './addTaskForm';
@@ -79,9 +79,9 @@ const TaskListItem: React.FC<Props> = ({
                         </div>
                         <button
                             onClick={() => onToggleTaskCompletion(list.id, task.id)}
-                            className={`px-4 py-2 ${task.completed ? 'bg-green-500' : 'bg-gray-500'} rounded-lg`}
+                            className={`p-2 rounded-full ${task.completed ? 'bg-green-500' : 'bg-gray-500'}`}
                         >
-                            {task.completed ? 'Completed' : 'Mark as Complete'}
+                            <FaCheck size={10} className={task.completed ? 'text-white' : 'text-gray-800'} />
                         </button>
                     </li>
                 ))}
